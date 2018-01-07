@@ -23,14 +23,18 @@ class App extends Component {
         }
       ]
     };
+
+    this.handleAddCity = this.handleAddCity.bind(this);
   }
+
+  handleAddCity() {}
 
   render() {
     return (
       <div className="App">
         <div className="container">
           <h1 className="title">React Weather App</h1>
-          <SearchForm />
+          <SearchForm handleAddCity={this.handleAddCity} />
           <CitiesRow cities={this.state.cities} />
         </div>
       </div>
