@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import SearchForm from './components/SearchForm';
-import CitiesRow from './components/CitiesRow';
+import CardsRow from './components/CardsRow';
 
 class App extends Component {
   constructor() {
@@ -27,7 +27,16 @@ class App extends Component {
     this.handleAddCity = this.handleAddCity.bind(this);
   }
 
-  handleAddCity() {}
+  handleAddCity(city) {
+    this.setState(prevState => {
+      cities: prevState.cities.concat({
+        id: Math.random(),
+        name: city.name,
+        temp: city.temp,
+        condition: city.condition
+      });
+    });
+  }
 
   render() {
     return (
@@ -35,7 +44,7 @@ class App extends Component {
         <div className="container">
           <h1 className="title">React Weather App</h1>
           <SearchForm handleAddCity={this.handleAddCity} />
-          <CitiesRow cities={this.state.cities} />
+          <CardsRow cities={this.state.cities} />
         </div>
       </div>
     );

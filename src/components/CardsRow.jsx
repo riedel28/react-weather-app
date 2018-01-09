@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from './Card';
 
-const CitiesRow = props => {
+const CardsRow = props => {
   const { cities } = props;
   // const { name, temp } = props.cities;
 
@@ -21,4 +21,4 @@ const CitiesRow = props => {
   );
 };
 
-export default CitiesRow;
+export default CardsRow;
