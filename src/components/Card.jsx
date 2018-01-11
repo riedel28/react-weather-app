@@ -1,13 +1,11 @@
 import React from 'react';
 
-const Card = props => {
-  // const { name, temp } = props;
-  console.log(props);
+const Card = ({ name, temp, condition }) => {
   return (
     <div className="box is-2">
-      <h2 className="city-name">{props.name}</h2>
-      <p className="city-temp">{props.temp}ºC</p>
-      <p className="city-weather">{props.condition}</p>
+      <h2 className="city-name">{name}</h2>
+      <p className="city-temp">{temp}ºC</p>
+      <p className="city-weather">{condition}</p>
     </div>
   );
 };

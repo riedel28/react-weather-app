@@ -27,18 +27,20 @@ class App extends Component {
     this.handleAddCity = this.handleAddCity.bind(this);
   }
 
-  handleAddCity(city) {
-    this.setState(prevState => {
-      cities: prevState.cities.concat({
-        id: Math.random(),
-        name: city.name,
-        temp: city.temp,
-        condition: city.condition
-      });
-    });
+  handleAddCity(e) {
+    e.preventDefault();
+
+    // this.setState(prevState => ({
+    //   cities: prevState.cities.concat({
+    //     name: 'Berlin',
+    //     temp: 10,
+    //     condition: 'Rainy'
+    //   })
+    // }));
   }
 
   render() {
+    console.log(this.state);
     return (
       <div className="App">
         <div className="container">

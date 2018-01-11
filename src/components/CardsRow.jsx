@@ -1,12 +1,7 @@
 import React from 'react';
 import Card from './Card';
 
-const CardsRow = props => {
-  const { cities } = props;
-  // const { name, temp } = props.cities;
-
-  console.log(cities);
-
+const CardsRow = ({ cities }) => {
   return (
     <div className="columns">
       {cities.map(city => (
