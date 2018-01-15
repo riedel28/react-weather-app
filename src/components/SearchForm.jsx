@@ -3,13 +3,21 @@ import React from 'react';
 // const onCitySubmit = e => {
 //   e.preventDefault();
 
-//   console.log(e.target.value);
+//   const city = e.target.elements.inputCity.value;
 // };
 
 const SearchForm = props => {
   return (
     <div className="column is-half is-offset-one-quarter">
-      <form onSubmit={props.handleAddCity}>
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          const city = e.target.elements.inputCity.value;
+          props.handleAddCity(city);
+          e.target.elements.inputCity.value = '';
+          console.log(e);
+        }}
+      >
         <div className="field is-grouped">
           <p className="control is-expanded">
             <input

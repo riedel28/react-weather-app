@@ -27,16 +27,16 @@ class App extends Component {
     this.handleAddCity = this.handleAddCity.bind(this);
   }
 
-  handleAddCity(e) {
-    e.preventDefault();
+  handleAddCity(city) {
+    this.setState(prevState => ({
+      cities: prevState.cities.concat({
+        name: city,
+        temp: 10,
+        condition: 'Rainy'
+      })
+    }));
 
-    // this.setState(prevState => ({
-    //   cities: prevState.cities.concat({
-    //     name: 'Berlin',
-    //     temp: 10,
-    //     condition: 'Rainy'
-    //   })
-    // }));
+    console.log(city);
   }
 
   render() {
@@ -44,7 +44,9 @@ class App extends Component {
     return (
       <div className="App">
         <div className="container">
-          <h1 className="title">React Weather App</h1>
+          <h1 className="title">
+            React Weather App - {this.state.cities.length}
+          </h1>
           <SearchForm handleAddCity={this.handleAddCity} />
           <CardsRow cities={this.state.cities} />
         </div>
