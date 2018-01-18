@@ -28,19 +28,31 @@ class App extends Component {
   }
 
   handleAddCity(city) {
-    this.setState(prevState => ({
-      cities: prevState.cities.concat({
-        name: city,
-        temp: 10,
-        condition: 'Rainy'
-      })
-    }));
+    const apiKey = '&APPID=e027ff558bf5bf1e94c43dc79604934e';
 
-    console.log(city);
+    const test = `http://api.openweathermap.org/data/2.5/weather?q=London,uk&units=metric${apiKey}`;
+
+    // const url = `api.openweathermap.org/data/2.5/weather?q=${city},uk${apiKey}`;
+
+    fetch(test)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+
+        const { name, main, weather } = data;
+
+        this.setState(prevState => ({
+          cities: prevState.cities.concat({
+            name: name,
+            temp: Math.floor(main.temp),
+            condition: weather[0].description
+          })
+        }));
+      });
   }
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     return (
       <div className="App">
         <div className="container">
