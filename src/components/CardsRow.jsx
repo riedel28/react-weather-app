@@ -6,7 +6,7 @@ const CardsRow = ({ cities }) => {
     <div className="columns">
       {cities.map(city => (
         <Card
-          key={Math.random()}
+          key={city.id}
           name={city.name}
           temp={city.temp}
           condition={city.condition}

@@ -5,6 +5,8 @@ import './App.css';
 import SearchForm from './components/SearchForm';
 import CardsRow from './components/CardsRow';
 
+import { test, apiKey } from './api';
+
 class App extends Component {
   constructor() {
     super();
@@ -12,11 +14,13 @@ class App extends Component {
     this.state = {
       cities: [
         {
+          id: 0,
           name: 'Moscow',
           temp: 20,
           condition: 'Sunny'
         },
         {
+          id: 1,
           name: 'New York',
           temp: 5,
           condition: 'Rainy'
@@ -28,31 +32,30 @@ class App extends Component {
   }
 
   handleAddCity(city) {
-    const apiKey = '&APPID=e027ff558bf5bf1e94c43dc79604934e';
+    const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric${apiKey}`;
 
-    const test = `http://api.openweathermap.org/data/2.5/weather?q=London,uk&units=metric${apiKey}`;
-
-    // const url = `api.openweathermap.org/data/2.5/weather?q=${city},uk${apiKey}`;
-
-    fetch(test)
+    fetch(url)
       .then(response => response.json())
       .then(data => {
         console.log(data);
 
-        const { name, main, weather } = data;
+        const { id, name, main, weather } = data;
+        const { temp } = main;
+        const [first] = weather;
 
         this.setState(prevState => ({
           cities: prevState.cities.concat({
+            id: id,
             name: name,
-            temp: Math.floor(main.temp),
-            condition: weather[0].description
+            temp: Math.floor(temp),
+            condition: first.main
           })
         }));
       });
   }
 
   render() {
-    // console.log(this.state);
+    console.log(this.state);
     return (
       <div className="App">
         <div className="container">
