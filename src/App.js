@@ -32,6 +32,18 @@ class App extends Component {
   }
 
   handleAddCity(city) {
+    if (!city) {
+      return 'Please enter a city name';
+    }
+
+    const existingCity = this.state.cities.find(c => c.name === city);
+
+    console.log(existingCity);
+
+    if (existingCity) {
+      return 'This city name is invalid or already exists';
+    }
+
     const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric${apiKey}`;
 
     fetch(url)
@@ -51,7 +63,8 @@ class App extends Component {
             condition: first.main
           })
         }));
-      });
+      })
+      .catch(error => {});
   }
 
   render() {

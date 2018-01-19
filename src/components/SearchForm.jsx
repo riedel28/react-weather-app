@@ -5,7 +5,7 @@ class SearchForm extends Component {
     super(props);
 
     this.state = {
-      error: 'undefined'
+      error: undefined
     };
 
     this.onCitySubmit = this.onCitySubmit.bind(this);
@@ -14,8 +14,13 @@ class SearchForm extends Component {
   onCitySubmit(e) {
     e.preventDefault();
     const city = e.target.elements.inputCity.value;
-    this.props.handleAddCity(city);
-    e.target.elements.inputCity.value = '';
+    const error = this.props.handleAddCity(city);
+
+    this.setState(() => ({ error }));
+
+    if (!error) {
+      e.target.elements.inputCity.value = '';
+    }
     console.log(e);
   }
 
