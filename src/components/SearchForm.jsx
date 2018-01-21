@@ -21,7 +21,6 @@ class SearchForm extends Component {
     if (!error) {
       e.target.elements.inputCity.value = '';
     }
-    console.log(e);
   }
 
   render() {

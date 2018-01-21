@@ -5,7 +5,7 @@ import './App.css';
 import SearchForm from './components/SearchForm';
 import CardsRow from './components/CardsRow';
 
-import { test, apiKey } from './api';
+import getWeather from './api';
 
 class App extends Component {
   constructor() {
@@ -38,19 +38,14 @@ class App extends Component {
 
     const existingCity = this.state.cities.find(c => c.name === city);
 
-    console.log(existingCity);
-
     if (existingCity) {
-      return 'This city name is invalid or already exists';
+      return 'This city already exists';
     }
 
-    const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric${apiKey}`;
+    // console.log(getWeather(city));
 
-    fetch(url)
-      .then(response => response.json())
+    getWeather(city)
       .then(data => {
-        console.log(data);
-
         const { id, name, main, weather } = data;
         const { temp } = main;
         const [first] = weather;
@@ -64,7 +59,7 @@ class App extends Component {
           })
         }));
       })
-      .catch(error => {});
+      .catch(error => console.log(error));
   }
 
   render() {
@@ -73,7 +68,7 @@ class App extends Component {
       <div className="App">
         <div className="container">
           <h1 className="title">
-            React Weather App - {this.state.cities.length}
+            React Weather <span>App</span> - {this.state.cities.length}
           </h1>
           <SearchForm handleAddCity={this.handleAddCity} />
           <CardsRow cities={this.state.cities} />
