@@ -5,12 +5,7 @@ const CardsRow = ({ cities }) => {
   return (
     <div className="columns">
       {cities.map(city => (
-        <Card
-          key={city.id}
-          name={city.name}
-          temp={city.temp}
-          condition={city.condition}
-        />
+        <Card key={city.id} name={city.name} temp={city.temp} condition={city.condition} />
       ))}
     </div>
   );

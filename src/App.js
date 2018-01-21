@@ -44,16 +44,20 @@ class App extends Component {
 
     // console.log(getWeather(city));
 
-    getWeather(city)
-      .then(data => {
-        const { id, name, main, weather } = data;
+    const weatherInfo = getWeather(city);
+
+    weatherInfo
+      .then((data) => {
+        const {
+          id, name, main, weather
+        } = data;
         const { temp } = main;
         const [first] = weather;
 
         this.setState(prevState => ({
           cities: prevState.cities.concat({
-            id: id,
-            name: name,
+            id,
+            name,
             temp: Math.floor(temp),
             condition: first.main
           })
