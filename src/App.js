@@ -29,6 +29,7 @@ class App extends Component {
     };
 
     this.handleAddCity = this.handleAddCity.bind(this);
+    this.handleDeleteCity = this.handleDeleteCity.bind(this);
   }
 
   handleAddCity(city) {
@@ -66,6 +67,12 @@ class App extends Component {
       .catch(error => console.log(error));
   }
 
+  handleDeleteCity(id) {
+    this.setState(prevState => ({
+      cities: prevState.cities.filter(c => c.id !== id)
+    }));
+  }
+
   render() {
     console.log(this.state);
     return (
@@ -75,7 +82,7 @@ class App extends Component {
             React Weather <span>App</span> - {this.state.cities.length}
           </h1>
           <SearchForm handleAddCity={this.handleAddCity} />
-          <CardsRow cities={this.state.cities} />
+          <CardsRow cities={this.state.cities} handleDeleteCity={this.handleDeleteCity} />
         </div>
       </div>
     );
