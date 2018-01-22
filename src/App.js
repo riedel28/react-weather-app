@@ -17,6 +17,7 @@ class App extends Component {
 
     this.handleAddCity = this.handleAddCity.bind(this);
     this.handleDeleteCity = this.handleDeleteCity.bind(this);
+    this.handleWeatherInfo = this.handleWeatherInfo.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -36,28 +37,26 @@ class App extends Component {
       return 'This city already exists';
     }
 
-    // console.log(getWeather(city));
+    getWeather(city)
+      .then(data => this.handleWeatherInfo(data))
+      .catch(error => 'City not found');
+  }
 
-    const weatherInfo = getWeather(city);
+  handleWeatherInfo(data) {
+    const {
+      id, name, main, weather
+    } = data;
+    const { temp } = main;
+    const [{ main: condition }] = weather;
 
-    weatherInfo
-      .then((data) => {
-        const {
-          id, name, main, weather
-        } = data;
-        const { temp } = main;
-        const [first] = weather;
-
-        this.setState(prevState => ({
-          cities: prevState.cities.concat({
-            id,
-            name,
-            temp: Math.floor(temp),
-            condition: first.main
-          })
-        }));
+    this.setState(prevState => ({
+      cities: prevState.cities.concat({
+        id,
+        name,
+        temp: Math.floor(temp),
+        condition
       })
-      .catch(error => console.log(error));
+    }));
   }
 
   handleDeleteCity(id) {
