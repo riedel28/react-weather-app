@@ -12,24 +12,17 @@ class App extends Component {
     super();
 
     this.state = {
-      cities: [
-        {
-          id: 0,
-          name: 'Moscow',
-          temp: 20,
-          condition: 'Sunny'
-        },
-        {
-          id: 1,
-          name: 'New York',
-          temp: 5,
-          condition: 'Rainy'
-        }
-      ]
+      cities: JSON.parse(localStorage.getItem('cities'))
     };
 
     this.handleAddCity = this.handleAddCity.bind(this);
     this.handleDeleteCity = this.handleDeleteCity.bind(this);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.cities.length !== this.state.cities.length) {
+      localStorage.setItem('cities', JSON.stringify(this.state.cities));
+    }
   }
 
   handleAddCity(city) {
@@ -75,6 +68,7 @@ class App extends Component {
 
   render() {
     console.log(this.state);
+
     return (
       <div className="App">
         <div className="container">
