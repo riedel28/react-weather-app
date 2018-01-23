@@ -39,7 +39,7 @@ class App extends Component {
 
     getWeather(city)
       .then(data => this.handleWeatherInfo(data))
-      .catch(error => 'City not found');
+      .catch((error) => {});
   }
 
   handleWeatherInfo(data) {
@@ -66,15 +66,11 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state);
-
     return (
       <div className="App">
+        <h1 className="title">React Weather App</h1>
         <div className="container">
-          <h1 className="title">
-            React Weather <span>App</span> - {this.state.cities.length}
-          </h1>
-          <SearchForm handleAddCity={this.handleAddCity} />
+          <SearchForm handleAddCity={this.handleAddCity} />{' '}
           <CardsRow cities={this.state.cities} handleDeleteCity={this.handleDeleteCity} />
         </div>
       </div>

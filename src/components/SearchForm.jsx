@@ -26,23 +26,23 @@ class SearchForm extends Component {
   render() {
     return (
       <div className="column is-half is-offset-one-quarter">
-        <form onSubmit={this.onCitySubmit}>
-          <div className="field is-grouped">
-            <p className="control is-expanded">
+        <form className="weather-form" onSubmit={this.onCitySubmit}>
+          {this.state.error && <p className="error-message">{this.state.error}</p>}
+          <div className="field">
+            <p className="control ">
               <input
-                className="input is-medium"
+                className="input is-large"
                 type="text"
                 placeholder="Search for a city"
                 name="inputCity"
               />
             </p>
             <p className="control">
-              <button className="button is-success is-medium">
-                Get weather
+              <button className="button btn-submit is-info is-large">
+                Get weather<i className="fab fa-telegram-plane" />
               </button>
             </p>
           </div>
-          {this.state.error && <p>{this.state.error}</p>}
         </form>
       </div>
     );
