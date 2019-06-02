@@ -12,7 +12,7 @@ class App extends Component {
     super();
 
     this.state = {
-      cities: JSON.parse(localStorage.getItem('cities'))
+      cities: JSON.parse(localStorage.getItem('cities')) || []
     };
 
     this.handleAddCity = this.handleAddCity.bind(this);
