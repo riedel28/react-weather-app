@@ -12,7 +12,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "lint": "eslint --ext=.jsx --ext=.js ./src/"
+    "lint": "eslint --ext=.jsx --ext=.js ./src/",
+    "now-build": "react-scripts build"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
