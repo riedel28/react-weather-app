@@ -53,7 +53,7 @@ class App extends Component {
       cities: prevState.cities.concat({
         id,
         name,
-        temp: Math.floor(temp),
+        temp: Math.round(temp),
         condition
       })
     }));
