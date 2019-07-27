@@ -13,7 +13,6 @@ body {
   padding: 1rem 0 1rem 0;
   font-size: 1.9rem;
   color: #ffffff;
-  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
   font-weight: 700;
   text-align: center;
   background: #00bfff;
@@ -33,9 +32,13 @@ body {
 
 .error-message {
   margin-bottom: 2px;
-  padding: 5px;
-  color: #f0146f;
-  font-style: italic;
+  padding: 10px;
+  margin-bottom: 5px;
+  background-color: #f0146f;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  border-radius: 2px;
 }
 
 .cards-row {
@@ -62,20 +65,17 @@ body {
 .card-title {
   font-size: 2.3rem;
   font-weight: 600;
-  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
 }
 
 .card-temp {
   font-size: 3rem;
   font-weight: 800;
-  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
 }
 
 .card-condition {
   font-size: 1.5rem;
   font-weight: 500;
   letter-spacing: 1px;
-  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
 }
 
 .btn-delete {
@@ -84,8 +84,6 @@ body {
   right: 8px;
   font-size: 1.2rem;
   color: #ffffff;
-  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
-
   font-weight: 400;
   background: transparent;
   border: none;
@@ -95,7 +93,6 @@ body {
 .control .btn-submit {
   width: 100%;
   background: #00bfff;
-  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
   text-transform: uppercase;
   font-weight: 700;
   letter-spacing: 1px;

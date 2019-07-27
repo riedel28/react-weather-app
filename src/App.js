@@ -8,41 +8,26 @@ import CardsRow from './components/CardsRow';
 import getWeather from './api';
 
 class App extends Component {
-  constructor() {
-    super();
+  state = {
+    cities: [],
+    isFetching: false,
+    notFound: false
+  };
 
-    this.state = {
-      cities: JSON.parse(localStorage.getItem('cities')) || []
-    };
+  handleAddCity = (city) => {
+    this.setState({ isFetching: true });
 
-    this.handleAddCity = this.handleAddCity.bind(this);
-    this.handleDeleteCity = this.handleDeleteCity.bind(this);
-    this.handleWeatherInfo = this.handleWeatherInfo.bind(this);
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.cities.length !== this.state.cities.length) {
-      localStorage.setItem('cities', JSON.stringify(this.state.cities));
+    if (city) {
+      getWeather(city)
+        .then(data => this.handleWeatherInfo(data))
+        .catch(() => {
+          this.setState({ notFound: true });
+        })
+        .then(() => this.setState({ isFetching: false }));
     }
-  }
+  };
 
-  handleAddCity(city) {
-    if (!city) {
-      return 'Please enter a city name';
-    }
-
-    const existingCity = this.state.cities.find(c => c.name === city);
-
-    if (existingCity) {
-      return 'This city already exists';
-    }
-
-    getWeather(city)
-      .then(data => this.handleWeatherInfo(data))
-      .catch((error) => {});
-  }
-
-  handleWeatherInfo(data) {
+  handleWeatherInfo = (data) => {
     const {
       id, name, main, weather
     } = data;
@@ -53,25 +38,35 @@ class App extends Component {
       cities: prevState.cities.concat({
         id,
         name,
-        temp: Math.floor(temp),
+        temp: Math.round(temp),
         condition
       })
     }));
-  }
+  };
 
-  handleDeleteCity(id) {
+  handleDeleteCity = (id) => {
     this.setState(prevState => ({
       cities: prevState.cities.filter(c => c.id !== id)
     }));
-  }
+  };
 
   render() {
     return (
       <div className="App">
         <h1 className="title">React Weather App</h1>
         <div className="container">
-          <SearchForm handleAddCity={this.handleAddCity} />{' '}
-          <CardsRow cities={this.state.cities} handleDeleteCity={this.handleDeleteCity} />
+          <SearchForm
+            handleAddCity={this.handleAddCity}
+            cities={this.state.cities}
+            isFetching={this.state.isFetching}
+          />
+          {this.state.notFound ? (
+            <div className="column is-half is-offset-one-quarter">
+              <p className=" error-message">This city was not found :(</p>
+            </div>
+          ) : (
+            <CardsRow cities={this.state.cities} handleDeleteCity={this.handleDeleteCity} />
+          )}
         </div>
       </div>
     );
