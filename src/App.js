@@ -9,29 +9,15 @@ import getWeather from './api';
 
 class App extends Component {
   state = {
-    cities: JSON.parse(localStorage.getItem('cities')) || []
+    cities: []
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.cities.length !== this.state.cities.length) {
-      localStorage.setItem('cities', JSON.stringify(this.state.cities));
-    }
-  }
-
   handleAddCity = (city) => {
-    if (!city) {
-      return 'Please enter a city name';
+    if (city) {
+      getWeather(city)
+        .then(data => this.handleWeatherInfo(data))
+        .catch(() => {});
     }
-
-    const existingCity = this.state.cities.find(c => c.name === city);
-
-    if (existingCity) {
-      return 'This city already exists';
-    }
-
-    getWeather(city)
-      .then(data => this.handleWeatherInfo(data))
-      .catch((error) => {});
   };
 
   handleWeatherInfo = (data) => {
@@ -62,7 +48,7 @@ class App extends Component {
       <div className="App">
         <h1 className="title">React Weather App</h1>
         <div className="container">
-          <SearchForm handleAddCity={this.handleAddCity} />{' '}
+          <SearchForm handleAddCity={this.handleAddCity} cities={this.state.cities} />
           <CardsRow cities={this.state.cities} handleDeleteCity={this.handleDeleteCity} />
         </div>
       </div>
