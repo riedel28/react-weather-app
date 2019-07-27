@@ -8,17 +8,9 @@ import CardsRow from './components/CardsRow';
 import getWeather from './api';
 
 class App extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      cities: JSON.parse(localStorage.getItem('cities')) || []
-    };
-
-    this.handleAddCity = this.handleAddCity.bind(this);
-    this.handleDeleteCity = this.handleDeleteCity.bind(this);
-    this.handleWeatherInfo = this.handleWeatherInfo.bind(this);
-  }
+  state = {
+    cities: JSON.parse(localStorage.getItem('cities')) || []
+  };
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.cities.length !== this.state.cities.length) {
@@ -26,7 +18,7 @@ class App extends Component {
     }
   }
 
-  handleAddCity(city) {
+  handleAddCity = (city) => {
     if (!city) {
       return 'Please enter a city name';
     }
@@ -40,9 +32,9 @@ class App extends Component {
     getWeather(city)
       .then(data => this.handleWeatherInfo(data))
       .catch((error) => {});
-  }
+  };
 
-  handleWeatherInfo(data) {
+  handleWeatherInfo = (data) => {
     const {
       id, name, main, weather
     } = data;
@@ -57,13 +49,13 @@ class App extends Component {
         condition
       })
     }));
-  }
+  };
 
-  handleDeleteCity(id) {
+  handleDeleteCity = (id) => {
     this.setState(prevState => ({
       cities: prevState.cities.filter(c => c.id !== id)
     }));
-  }
+  };
 
   render() {
     return (
