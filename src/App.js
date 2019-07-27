@@ -9,14 +9,18 @@ import getWeather from './api';
 
 class App extends Component {
   state = {
-    cities: []
+    cities: [],
+    isFetching: false
   };
 
   handleAddCity = (city) => {
+    this.setState({ isFetching: true });
+
     if (city) {
       getWeather(city)
         .then(data => this.handleWeatherInfo(data))
-        .catch(() => {});
+        .catch(() => {})
+        .then(() => this.setState({ isFetching: false }));
     }
   };
 
@@ -48,7 +52,11 @@ class App extends Component {
       <div className="App">
         <h1 className="title">React Weather App</h1>
         <div className="container">
-          <SearchForm handleAddCity={this.handleAddCity} cities={this.state.cities} />
+          <SearchForm
+            handleAddCity={this.handleAddCity}
+            cities={this.state.cities}
+            isFetching={this.state.isFetching}
+          />
           <CardsRow cities={this.state.cities} handleDeleteCity={this.handleDeleteCity} />
         </div>
       </div>

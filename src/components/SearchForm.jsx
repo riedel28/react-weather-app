@@ -28,6 +28,8 @@ class SearchForm extends Component {
   };
 
   render() {
+    const { isFetching } = this.props;
+
     return (
       <div className="column is-half is-offset-one-quarter">
         {this.state.error && <p className="error-message">{this.state.error}</p>}
@@ -43,7 +45,9 @@ class SearchForm extends Component {
               />
             </p>
             <p className="control">
-              <button className="button btn-submit is-info is-large">
+              <button
+                className={`button btn-submit is-info is-large ${isFetching ? 'is-loading' : ''}`}
+              >
                 Get weather
                 <i className="fab fa-telegram-plane" />
               </button>
