@@ -10,7 +10,8 @@ import getWeather from './api';
 class App extends Component {
   state = {
     cities: [],
-    isFetching: false
+    isFetching: false,
+    notFound: false
   };
 
   handleAddCity = (city) => {
@@ -19,7 +20,9 @@ class App extends Component {
     if (city) {
       getWeather(city)
         .then(data => this.handleWeatherInfo(data))
-        .catch(() => {})
+        .catch(() => {
+          this.setState({ notFound: true });
+        })
         .then(() => this.setState({ isFetching: false }));
     }
   };
@@ -57,7 +60,13 @@ class App extends Component {
             cities={this.state.cities}
             isFetching={this.state.isFetching}
           />
-          <CardsRow cities={this.state.cities} handleDeleteCity={this.handleDeleteCity} />
+          {this.state.notFound ? (
+            <div className="column is-half is-offset-one-quarter">
+              <p className=" error-message">This city was not found :(</p>
+            </div>
+          ) : (
+            <CardsRow cities={this.state.cities} handleDeleteCity={this.handleDeleteCity} />
+          )}
         </div>
       </div>
     );

@@ -17,10 +17,9 @@ class SearchForm extends Component {
 
     if (alReadyExists) {
       this.setState(() => ({ error: 'This city already exists on the list' }));
-    } else {
-      this.props.handleAddCity(this.state.city);
-      this.setState({ city: '' });
     }
+    this.props.handleAddCity(this.state.city);
+    this.setState({ city: '' });
   };
 
   handleChange = (e) => {
