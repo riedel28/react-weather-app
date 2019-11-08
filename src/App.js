@@ -14,8 +14,8 @@ class App extends Component {
     notFound: false
   };
 
-  handleAddCity = (city) => {
-    this.setState({ isFetching: true });
+  handleAddCity = city => {
+    this.setState({ isFetching: true, notFound: false });
 
     if (city) {
       getWeather(city)
@@ -27,10 +27,8 @@ class App extends Component {
     }
   };
 
-  handleWeatherInfo = (data) => {
-    const {
-      id, name, main, weather
-    } = data;
+  handleWeatherInfo = data => {
+    const { id, name, main, weather } = data;
     const { temp } = main;
     const [{ main: condition }] = weather;
 
@@ -44,13 +42,14 @@ class App extends Component {
     }));
   };
 
-  handleDeleteCity = (id) => {
+  handleDeleteCity = id => {
     this.setState(prevState => ({
       cities: prevState.cities.filter(c => c.id !== id)
     }));
   };
 
   render() {
+    console.log(this.state.cities);
     return (
       <div className="App">
         <h1 className="title">React Weather App</h1>
@@ -60,13 +59,15 @@ class App extends Component {
             cities={this.state.cities}
             isFetching={this.state.isFetching}
           />
-          {this.state.notFound ? (
+          {this.state.notFound && (
             <div className="column is-half is-offset-one-quarter">
               <p className=" error-message">This city was not found :(</p>
             </div>
-          ) : (
-            <CardsRow cities={this.state.cities} handleDeleteCity={this.handleDeleteCity} />
           )}
+          <CardsRow
+            cities={this.state.cities}
+            handleDeleteCity={this.handleDeleteCity}
+          />
         </div>
       </div>
     );

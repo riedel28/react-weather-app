@@ -6,10 +6,12 @@ class SearchForm extends Component {
     error: ''
   };
 
-  handleCitySubmit = (e) => {
+  handleCitySubmit = e => {
     e.preventDefault();
 
-    const alReadyExists = this.props.cities.some(c => c.name === this.state.city);
+    const alReadyExists = this.props.cities.some(
+      c => c.name === this.state.city
+    );
 
     if (this.state.city === '') {
       this.setState(() => ({ error: 'Please enter a city name' }));
@@ -22,7 +24,7 @@ class SearchForm extends Component {
     this.setState({ city: '' });
   };
 
-  handleChange = (e) => {
+  handleChange = e => {
     this.setState({ city: e.target.value, error: '' });
   };
 
@@ -31,7 +33,9 @@ class SearchForm extends Component {
 
     return (
       <div className="column is-half is-offset-one-quarter">
-        {this.state.error && <p className="error-message">{this.state.error}</p>}
+        {this.state.error && (
+          <p className="error-message">{this.state.error}</p>
+        )}
         <form className="weather-form" onSubmit={this.handleCitySubmit}>
           <div className="field">
             <p className="control ">
@@ -45,7 +49,9 @@ class SearchForm extends Component {
             </p>
             <p className="control">
               <button
-                className={`button btn-submit is-info is-large ${isFetching ? 'is-loading' : ''}`}
+                className={`button btn-submit is-info is-large ${
+                  isFetching ? 'is-loading' : ''
+                }`}
               >
                 Get weather
                 <i className="fab fa-telegram-plane" />
