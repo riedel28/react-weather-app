@@ -1,8 +1,6 @@
 import React from 'react';
 
-const Card = ({
-  id, name, temp, condition, handleDeleteCity
-}) => {
+const Card = ({ id, name, temp, condition, handleDeleteCity }) => {
   return (
     <div className="column is-one-third-tablet is-one-quarter-desktop">
       <div className="card">
