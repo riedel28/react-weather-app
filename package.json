@@ -15,20 +15,6 @@
     "lint": "eslint --ext=.jsx --ext=.js ./src/",
     "now-build": "react-scripts build"
   },
-<<<<<<< HEAD
-  "devDependencies": {},
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-=======
   "devDependencies": {
     "babel-eslint": "^8.2.1",
     "eslint": "^4.18.2",
@@ -37,6 +23,17 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-prettier": "2.5.0",
     "eslint-plugin-react": "^7.5.1"
->>>>>>> master
-  }
+  },
+  "browserlist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ]
+  },
+  "development": [
+    "last 1 chrome version",
+    "last 1 firefox version",
+    "last 1 safari version"
+  ]
 }
