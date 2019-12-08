@@ -1,45 +1,51 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import './App.css';
+import "./App.css";
 
-import SearchForm from './components/SearchForm';
-import CardsRow from './components/CardsRow';
+import SearchForm from "./components/SearchForm";
+import CardsRow from "./components/CardsRow";
 
-import getWeather from './api';
+import { getWeatherData } from "./api";
 
 class App extends Component {
   state = {
     cities: [],
-    isFetching: false,
-    notFound: false
+    isLoading: false,
+    notFound: false,
+    errorMessage: ""
   };
 
-  handleAddCity = city => {
-    this.setState({ isFetching: true, notFound: false });
+  onCityDataLoaded = cityData => {
+    const alReadyExists = this.state.cities.some(
+      city => city.name === cityData.name
+    );
 
-    if (city) {
-      getWeather(city)
-        .then(data => this.handleWeatherInfo(data))
-        .catch(() => {
-          this.setState({ notFound: true });
-        })
-        .then(() => this.setState({ isFetching: false }));
+    if (alReadyExists) {
+      this.setState({
+        errorMessage: "This city is already on the list"
+      });
+    } else {
+      this.setState({
+        cities: [...this.state.cities, cityData]
+      });
     }
   };
 
-  handleWeatherInfo = data => {
-    const { id, name, main, weather } = data;
-    const { temp } = main;
-    const [{ main: condition }] = weather;
+  onError = () => {
+    this.setState({
+      errorMessage: "This city was not found"
+    });
+  };
 
-    this.setState(prevState => ({
-      cities: prevState.cities.concat({
-        id,
-        name,
-        temp: Math.round(temp),
-        condition
-      })
-    }));
+  handleAddCity = city => {
+    this.setState({ isLoading: true, errorMessage: "" });
+
+    if (city) {
+      getWeatherData(city)
+        .then(this.onCityDataLoaded)
+        .catch(this.onError)
+        .finally(() => this.setState({ isLoading: false }));
+    }
   };
 
   handleDeleteCity = id => {
@@ -49,7 +55,6 @@ class App extends Component {
   };
 
   render() {
-    console.log(this.state.cities);
     return (
       <div className="App">
         <h1 className="title">React Weather App</h1>
@@ -57,11 +62,11 @@ class App extends Component {
           <SearchForm
             handleAddCity={this.handleAddCity}
             cities={this.state.cities}
-            isFetching={this.state.isFetching}
+            isLoading={this.state.isLoading}
           />
-          {this.state.notFound && (
+          {this.state.errorMessage && (
             <div className="column is-half is-offset-one-quarter">
-              <p className=" error-message">This city was not found :(</p>
+              <p className=" error-message">{this.state.errorMessage}</p>
             </div>
           )}
           <CardsRow
