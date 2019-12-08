@@ -1,35 +1,29 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class SearchForm extends Component {
   state = {
-    city: '',
-    error: ''
+    city: "",
+    error: ""
   };
 
   handleCitySubmit = e => {
     e.preventDefault();
 
-    const alReadyExists = this.props.cities.some(
-      c => c.name === this.state.city
-    );
-
-    if (this.state.city === '') {
-      this.setState(() => ({ error: 'Please enter a city name' }));
+    if (this.state.city === "") {
+      this.setState(() => ({ error: "Please enter a city name" }));
+      return;
     }
 
-    if (alReadyExists) {
-      this.setState(() => ({ error: 'This city already exists on the list' }));
-    }
     this.props.handleAddCity(this.state.city);
-    this.setState({ city: '' });
+    this.setState({ city: "" });
   };
 
   handleChange = e => {
-    this.setState({ city: e.target.value, error: '' });
+    this.setState({ city: e.target.value, error: "" });
   };
 
   render() {
-    const { isFetching } = this.props;
+    const { isLoading } = this.props;
 
     return (
       <div className="column is-half is-offset-one-quarter">
@@ -50,7 +44,7 @@ class SearchForm extends Component {
             <p className="control">
               <button
                 className={`button btn-submit is-info is-large ${
-                  isFetching ? 'is-loading' : ''
+                  isLoading ? "is-loading" : ""
                 }`}
               >
                 Get weather
